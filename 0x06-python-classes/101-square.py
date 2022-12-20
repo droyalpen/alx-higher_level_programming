@@ -1,69 +1,81 @@
 #!/usr/bin/python3
-"""
-This is the "Square"  module.
-This module provides a simple Square class with initialize size.
-Defaults size to 0. Raise error on invalid size inputs.
-Attribute position which takes a default (0, 0) tuple.
-Methods Getter and Setter properties for size and position.
-Method area returns size of area of the square.
-Method my_print prints the square using "#", moved over left and top using
-position tuple.
-Method __repr__ should return the string to print out the square.
+"""This module contains a class that defines a square.
+In the Square class we initialize each object by the
+__init__ method with a private instance variable called
+__size that takes the size variable's value passed as
+argument. Also checks if the size arg has a valid value.
 """
 
 
-class Square:
-    """A class that defines a square by size, which defaults 0.
-    Also defines position using a tuple, which defaults (0, 0).
-    Square can also get area, and print square using '#'.
-    When printing, using position, offset on top and left.
-    """
+class Square():
+    """A square class."""
     def __init__(self, size=0, position=(0, 0)):
+        """Initialization of the class square."""
         self.size = size
         self.position = position
 
+    def area(self):
+        """The area of the Square"""
+        return self.__size ** 2
+
     @property
     def size(self):
+        """The size of the Square"""
         return self.__size
 
     @size.setter
-    def size(self, size):
-        if type(size) != int:
+    def size(self, SizeValue):
+        """set size of the Square"""
+        if type(SizeValue) != int:
             raise TypeError("size must be an integer")
-        if size < 0:
+        if SizeValue < 0:
             raise ValueError("size must be >= 0")
-        self.__size = size
+        self.__size = SizeValue
+
+    def my_print(self):
+        """print the Square"""
+        size = self.__size
+        position = self.__position
+        if size == 0:
+            print()
+            return
+        for r in range(position[1]):
+            print()
+        for i in range(size):
+            for spc in range(position[0]):
+                print(" ", end="")
+            for j in range(size):
+                print("#", end="")
+            print()
 
     @property
     def position(self):
+        """The position of the Square"""
         return self.__position
 
     @position.setter
-    def position(self, value):
-        if type(value) != tuple or len(value) != 2 or \
-           not all([type(i) == int for i in value]):
+    def position(self, PositionValue):
+        """set position of the Square"""
+        if type(PositionValue) != tuple or len(PositionValue) != 2:
             raise TypeError("position must be a tuple of 2 positive integers")
-        self.__position = value
+        if any(type(val) != int for val in PositionValue):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        if any(val < 0 for val in PositionValue):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        self.__position = PositionValue
 
-    def __repr__(self):
-        return (self.get_str())
-
-    def area(self):
-        return self.__size * self.__size
-
-    def get_str(self):
-        total = ""
-        if self.__size is 0:
-            total += "\n"
-            return total
-        for i in range(self.__position[1]):
-            total += "\n"
-        for i in range(self.__size):
-            total += (" " * self.__position[0])
-            total += ("#" * self.__size)
-            if i is not (self.__size - 1):
-                total += "\n"
-        return total
-
-    def my_print(self):
-        print(self.get_str())
+    def __str__(self):
+        size = self.__size
+        position = self.__position
+        strg = ""
+        if size == 0:
+            return ""
+        for r in range(position[1]):
+            strg = strg + "\n"
+        for i in range(size):
+            for spc in range(position[0]):
+                strg = strg + " "
+            for j in range(size):
+                strg = strg + "#"
+            strg = strg + "\n"
+        return strg[:-1]
