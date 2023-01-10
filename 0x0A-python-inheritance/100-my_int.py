@@ -1,14 +1,16 @@
 #!/usr/bin/python3
-"""initializate"""
+"""Function add_attribute
+"""
 
 
-class MyInt(int):
-    """class MyInt"""
+def add_attribute(a_class, name, value):
+    """Adds new attribute to an object if it's possible
+    """
 
-    def __ne__(self, next):
-        """negation to equal"""
-        return super().__eq__(next)
+    # Set for O(1) membership test
+    cannot_add = {int, str, float, list, dict, tuple, frozenset, type, object}
 
-    def __eq__(self, next):
-        """equal to negation"""
-        return super().__ne__(next)
+    if type(a_class) in cannot_add:
+        raise TypeError("can't add new attribute")
+
+    a_class.__setattr__(name, value)
