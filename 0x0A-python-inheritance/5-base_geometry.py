@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-"""BaseGeometry
-"""
+"""initializate module"""
 
 
 class BaseGeometry:
+    """create a class empty"""
     pass
